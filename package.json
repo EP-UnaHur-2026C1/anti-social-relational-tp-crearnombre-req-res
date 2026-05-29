@@ -1,15 +1,32 @@
 {
-  "name": "anti-social",
+  "name": "anti-social-relational-tp-crearnombre-req-res",
   "version": "1.0.0",
-  "description": "UnaHur anti-social net - Trabajo Práctico",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Gerardo Gonzalez Tulian",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EP-UnaHur-2026C1/anti-social-relational-tp-crearnombre-req-res.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EP-UnaHur-2026C1/anti-social-relational-tp-crearnombre-req-res/issues"
+  },
+  "homepage": "https://github.com/EP-UnaHur-2026C1/anti-social-relational-tp-crearnombre-req-res#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "joi": "^18.2.1",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1"
+  },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.14",
+    "sequelize-cli": "^6.6.5"
   }
 }
