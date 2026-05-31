@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "sqlite",
+    "database": "anti-social-relational",
     "storage": "./data/data.sqlite",
     "dialect": "sqlite"
   },
