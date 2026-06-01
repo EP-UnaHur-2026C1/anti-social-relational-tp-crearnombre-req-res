@@ -1,19 +1,24 @@
 const express = require('express') 
 const app = express() 
 const db = require('./models') 
+const routerUser = require('./routes/users.routes')
+
 require("dotenv").config(); 
 
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT; 
 
 app.use(express.json())
 
-
-
+app.use('/users', routerUser)
 
 
 app.listen(PORT, async()=>{
-    await db.sequelize.sync() 
-    console.log("La aplicacion esta corriendo en el puerto " + PORT)
+    try {
+        await db.sequelize.sync()
+        console.log("La aplicacion esta corriendo en el puerto " + PORT)
+    } catch (error) {
+        console.error("Error al conectar a la base de datos:", error.message)
+    }
 }) 
 
 
