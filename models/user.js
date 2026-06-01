@@ -14,7 +14,20 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'comments'
       });
-      // falta unitaria
+      
+      User.belongsToMany(models.User, {
+        through: models.Follower,
+        as: 'seguidores',
+        foreignKey: 'seguidoId',
+        otherKey: 'seguidorId'
+      });
+      User.belongsToMany(models.User, {
+        through: models.Follower,
+        as: 'seguidos',
+        foreignKey: 'seguidorId',
+        otherKey: 'seguidoId'
+      });
+      
     }
   }
   User.init({

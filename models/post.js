@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'postId',
         as: 'comments'
       });
-      Post.hasMany(models.Post_Image, {
+      
+      Post.hasMany(models.Post_Image, {// no se si esta bien porque es 1 a 0..m, lei que se trata com el 1 a M pero aclaras que el id de post_images es opcional
         foreignKey: 'postId',
         as: 'images'
       });
@@ -35,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATEONLY,
       allowNull: false
     },
-    post_imagesId: {
+    post_imagesId: { // porque es relacion 1 a 0..m, el id de post_images es opcional ???
       type: DataTypes.INTEGER,
       allowNull: true
     }

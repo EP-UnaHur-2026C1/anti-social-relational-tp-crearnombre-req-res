@@ -3,22 +3,24 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class PostTag extends Model {
+  class Follower extends Model {
+
     static associate(models) {
     }
   }
-  PostTag.init({
-    PostId: {
-      type: DataTypes.INTEGER,
+  Follower.init({
+    seguidorId: {
+      type: 
+      DataTypes.INTEGER,
       allowNull: false
     },
-    TagId:{
+    seguidoId: {
       type: DataTypes.INTEGER,
       allowNull: false
-    } 
+    }
   }, {
     sequelize,
-    modelName: 'PostTag',
+    modelName: 'Follower',
   });
-  return PostTag;
+  return Follower;
 };
