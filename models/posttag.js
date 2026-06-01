@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   PostTag.init({
-    PostId: {
+    postId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    TagId:{
+    tagId:{
       type: DataTypes.INTEGER,
       allowNull: false
     } 
