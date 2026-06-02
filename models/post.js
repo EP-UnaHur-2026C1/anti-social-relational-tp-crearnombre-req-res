@@ -1,32 +1,38 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
-
     static associate(models) {
+
+      // Un post pertenece a un único usuario
       Post.belongsTo(models.User, {
         foreignKey: 'userId',
         as: 'user'
       });
+
+      // Un post puede tener muchas etiquetas (tags)
       Post.belongsToMany(models.Tag, {
         through: 'PostTag',
         foreignKey: 'postId',
         otherKey: 'tagId',
         as: 'tags'
       });
+
+      // Un post tiene muchos comentarios
       Post.hasMany(models.Comment, {
         foreignKey: 'postId',
         as: 'comments'
       });
       
-      Post.hasMany(models.Post_Image, {// no se si esta bien porque es 1 a 0..m, lei que se trata com el 1 a M pero aclaras que el id de post_images es opcional
+      // Un post tiene muchas imágenes (pueden ser 0, 1 o varias)
+      Post.hasMany(models.Post_Image, {
         foreignKey: 'postId',
         as: 'images'
       });
     }
   }
+
   Post.init({
     descripcion: {
       type: DataTypes.STRING,
@@ -35,10 +41,6 @@ module.exports = (sequelize, DataTypes) => {
     fecha: {
       type: DataTypes.DATEONLY,
       allowNull: false
-    },
-    post_imagesId: { // porque es relacion 1 a 0..m, el id de post_images es opcional ???
-      type: DataTypes.INTEGER,
-      allowNull: true
     }
   }, {
     sequelize,

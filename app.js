@@ -2,6 +2,7 @@ const express = require('express')
 const app = express() 
 const db = require('./models') 
 const routerUser = require('./routes/users.routes')
+const routerPost = require('./routes/posts.routes')
 
 require("dotenv").config(); 
 
@@ -10,7 +11,7 @@ const PORT = process.env.PORT;
 app.use(express.json())
 
 app.use('/users', routerUser)
-
+app.use('/posts', routerPost)
 
 app.listen(PORT, async()=>{
     try {
