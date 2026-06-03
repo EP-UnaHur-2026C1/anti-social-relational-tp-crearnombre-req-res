@@ -31,7 +31,7 @@ const createPost = async (req, res) => {
         return res.status(201).json(nuevoPost);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: 'Hubo un error al crear el post.' });
+        return res.status(500).json({ message: 'Hubo un error al crear el post.', error: error.message });
     }
 };
 
@@ -84,8 +84,28 @@ const getAllPosts = async (req, res) => {
     }
 };
 
+const deletePost = async (req, res) => {
+    try {
+        const { id } = req.params; // Captura el ID de la URL
+
+        const cantidadBorrados = await Post.destroy({
+            where: { id: id }
+        });
+
+        if (cantidadBorrados === 0) {
+            return res.status(404).json({ message: 'No se encontró la publicación que querés eliminar.' });
+        }
+
+        return res.status(200).json({ message: 'Publicación eliminada con éxito.' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Hubo un error al eliminar la publicación.' });
+    }
+};
+
 
 module.exports = {
     createPost,
-    getAllPosts
+    getAllPosts,
+    deletePost
 };
