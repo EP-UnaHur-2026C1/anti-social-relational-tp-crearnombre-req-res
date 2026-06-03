@@ -1,4 +1,7 @@
 'use strict';
+
+const { all } = require('axios');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -10,13 +13,26 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       descripcion: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       visible: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       fecha: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATEONLY,
+        allowNull: false
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'Users', key: 'id' }
+      },
+      postId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'Posts', key: 'id' }
       },
       createdAt: {
         allowNull: false,

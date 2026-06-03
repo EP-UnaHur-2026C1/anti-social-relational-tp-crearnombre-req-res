@@ -3,9 +3,6 @@ const { Comment, User, Post } = require('../models');
 const crearComentario = async (req, res) => {
     try {
         const { descripcion, userId, postId } = req.body;
-        if (!descripcion || !userId || !postId) {
-            return res.status(400).json({ error: 'Faltan campos obligatorios' });
-        }
 
         const usuario = await User.findByPk(userId);
         if (!usuario) {
@@ -31,6 +28,32 @@ const crearComentario = async (req, res) => {
     }
 }
 
+const actualizarComentario = async (req, res) => {
+    try {
+        const { descripcion, userId, postId } = req.body;
+
+        const comentario = req.comentario;
+        const usuario = await User.findByPk(userId);
+        if (!usuario) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        const post = await Post.findByPk(postId);
+        if (!post) {
+            return res.status(404).json({ error: 'Post no encontrado' });
+        }
+
+        await comentario.update({
+            descripcion,
+            userId,
+            postId
+        });
+
+        res.status(200).json(comentario);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al actualizar el comentario' });
+    }
+
+}
 
 const obtenerComentarios = async (req, res) => {
 
@@ -61,42 +84,33 @@ const obtenerComentarios = async (req, res) => {
 
 const obtenerComentarioPorId = async (req, res) => {
     try {
-        const { id } = req.params;
-        const comentario = await Comment.findByPk(id, {
-            attributes: ['descripcion', 'visible', 'fecha'],
-            include: [
-                {
-                    model: User,
-                    as: 'user',
-                    attributes: ['nickname']
-                }
-            ]
-        })
-        if (!comentario) {
-            return res.status(404).json({ error: 'Comentario no encontrado' });
-        }
-        res.status(200).json(comentario);
+
+        res.status(200).json(req.comentario);
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener el comentario' });
+        res.status(500).json({
+            error: 'Error al obtener el comentario'
+        });
     }
 };
 
 const deleteComentario = async (req, res) => {
     try {
-        const { id } = req.params;
-        const comentario = req.comentario;
-        await comentario.destroy();
+        await req.comentario.destroy();
+
         res.status(200).json({
             message: 'Comentario eliminado correctamente'
         });
     } catch (error) {
-        res.status(500).json({ error: 'Error al eliminar el comentario' });
-    };
-}
+        res.status(500).json({
+            error: 'Error al eliminar el comentario'
+        });
+    }
+};
 
 module.exports = {
     crearComentario,
+    actualizarComentario,
     obtenerComentarios,
     obtenerComentarioPorId,
     deleteComentario
-}
+};
