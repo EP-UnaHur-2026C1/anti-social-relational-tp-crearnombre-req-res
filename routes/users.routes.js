@@ -7,6 +7,7 @@ const {
   validarSeguidorId,
   validarNickname,
   validarNoSeguirseASiMismo,
+  obtenerPublicaciones,
 } = require("../middlewares/validarUser.middleware");
 const router = Router();
 
@@ -41,5 +42,8 @@ router.get(
   userController.obtenerSeguidores,
 );
 router.get("/:id/following", validarUsuarioId, userController.obtenerSeguidos);
+
+/* RUTAS DE PUBLICACIONES */
+router.get("/:id/posts", validarUsuarioId, userController.obtenerPublicaciones);
 
 module.exports = router;

@@ -1,4 +1,5 @@
-const { User, sequelize } = require("../models");
+const { User, Post, Post_Image, Tag, Comment, sequelize } = require("../models");
+const { Op } = require("sequelize");
 
 const crearUsuario = async (req, res) => {
   try {
@@ -114,6 +115,48 @@ const obtenerSeguidos = async (req, res) => {
   }
 };
 
+const obtenerPublicaciones = async (req, res) => {
+  try {
+    const mesesLimite = process.env.COMMENT_MAX_AGE_MONTHS || 6;
+    const fechaLimite = new Date();
+    fechaLimite.setMonth(fechaLimite.getMonth() - mesesLimite);
+
+    const usuario = req.usuario;
+    const publicaciones = await usuario.getPosts({
+      attributes: ["id", "descripcion", "fecha"],
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: ["nickname"],
+        },
+        {
+          model: Post_Image,
+          as: "images",
+          attributes: ["url"],
+        },
+        {
+          model: Tag,
+          as: "tags",
+          through: { attributes: [] },
+        },
+        {
+          model: Comment,
+          as: "comments",
+          where: {
+            createdAt: { [Op.gte]: fechaLimite },
+          },
+          required: false,
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
+    res.status(200).json(publicaciones);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   crearUsuario,
   obtenerUsuarios,
@@ -123,4 +166,5 @@ module.exports = {
   dejarDeSeguirUsuario,
   obtenerSeguidores,
   obtenerSeguidos,
+  obtenerPublicaciones,
 };

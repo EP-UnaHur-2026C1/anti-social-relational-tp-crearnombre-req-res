@@ -33,3 +33,8 @@ npm run seed
 | `GET` | `/users/:id/followers` | Obtener seguidores | `validarUsuarioId` |
 | `GET` | `/users/:id/following` | Obtener seguidos | `validarUsuarioId` |
 
+### Posts
+
+| Método | Ruta | Descripción | Middlewares |
+|---|---|---|---|
+| `GET` | `/users/:id/posts` | Ver posts de un usuario | `validarUsuarioId` |
