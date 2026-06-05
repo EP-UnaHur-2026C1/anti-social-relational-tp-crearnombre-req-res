@@ -46,6 +46,17 @@ const cargarComentario = async (req, res, next) => {
                 error: 'Comentario no encontrado'
             });
         }
+        
+        
+        const meses = parseInt(process.env.COMENTARIOS_LIMITE_MESES) || 6; //Trae los Meses desde el .env, si no esta definido, por defecto se usan 6 meses
+        const fechaLimite = new Date();
+        fechaLimite.setMonth(fechaLimite.getMonth() - meses);
+
+        if (comentario.visible === false || comentario.fecha < fechaLimite) {
+            return res.status(404).json({
+                error: 'Comentario no encontrado o no disponible'
+            });
+        }
 
         req.comentario = comentario;
         next();
