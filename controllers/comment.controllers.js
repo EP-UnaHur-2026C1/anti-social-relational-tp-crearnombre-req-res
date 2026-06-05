@@ -1,4 +1,5 @@
 const { Comment, User, Post } = require('../models');
+const { Op } = require('sequelize');
 
 const crearComentario = async (req, res) => {
     try {
@@ -58,9 +59,19 @@ const actualizarComentario = async (req, res) => {
 const obtenerComentarios = async (req, res) => {
 
     try {
+        // Filtrar comentarios por fecha, mostrando solo los que son visibles y no son anteriores a la fecha límite
+        const meses = parseInt(process.env.COMENTARIOS_LIMITE_MESES) || 6; //Trae los Meses desde el .env, si no esta definido, por defecto se usan 6 meses
+        const fechaLimite = new Date();
+        fechaLimite.setMonth(fechaLimite.getMonth() - meses);
+
+
         const comentarios = await Comment.findAll({
             where: {
-                visible: true
+                fecha: {
+                    [Op.gte]: fechaLimite
+                } && {
+                    visible: true
+                }
             },
             attributes: ['descripcion', 'visible', 'fecha'],
             include: [
