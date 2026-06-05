@@ -4,6 +4,7 @@ const db = require('./models')
 const routerUser = require('./routes/users.routes')
 const routerPost = require('./routes/posts.routes')
 const routerTags = require('./routes/tags.routes')
+const routerComment = require('./routes/comments.routes')
 
 require("dotenv").config(); 
 
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use('/users', routerUser)
 app.use('/posts', routerPost)
 app.use('/tags', routerTags)
+app.use('/comments', routerComment)
 
 app.listen(PORT, async()=>{
     try {

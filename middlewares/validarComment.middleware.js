@@ -1,5 +1,5 @@
 const { Comment, User, Post } = require('../models');
-const comentarioSchema = require('../schemas/comment.schema');
+const comentarioSchema = require('../schemas/comments.schema');
 
 const validarComentario = (req, res, next) => {
     const { error } = comentarioSchema.validate(req.body);
