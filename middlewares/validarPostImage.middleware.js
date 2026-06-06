@@ -9,7 +9,7 @@ const validarPostImage = (req, res, next) => {
     next();
 };
 
-const obtenerPostImagenPorId = async (req, res, next) => {
+const obtenerPostImagePorId = async (req, res, next) => {
     try {
         const { id } = req.params;
         const postImage = await Post_Image.findByPk(id);
@@ -25,5 +25,5 @@ const obtenerPostImagenPorId = async (req, res, next) => {
 
 module.exports = {
     validarPostImage,
-    obtenerPostImagenPorId
+    obtenerPostImagePorId
 };

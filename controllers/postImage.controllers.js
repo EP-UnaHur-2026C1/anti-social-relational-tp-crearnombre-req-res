@@ -2,7 +2,7 @@ const {Post_Image,Post} = require('../models');
 
 
 
-const obtenerPostImagenes = async (req, res) => {
+const obtenerPostImagens = async (req, res) => {
     try {
         const postImagenes = await Post_Image.findAll({
             attributes: ['URL'],
@@ -43,11 +43,11 @@ const crearPostImagens = async (req, res) => {
 };
 
 
-const eliminarPostImagen = async (req, res) => {
+const eliminarPostImage = async (req, res) => {
     try {
         const { id } = req.params;
-        const postImagen = req.postImagen;
-        await postImagen.destroy();
+        const postImage = req.postImage;
+        await postImage.destroy();
         res.status(200).json({ message: 'Imagen del post eliminada correctamente' });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,7 +55,7 @@ const eliminarPostImagen = async (req, res) => {
 };
 
 
-const actualizarPostImagen = async (req, res) => {
+const actualizarPostImage = async (req, res) => {
     try {
         const { id } = req.params;
         const { URL, postId } = req.body;
@@ -69,9 +69,9 @@ const actualizarPostImagen = async (req, res) => {
 
 
 module.exports = {
-    obtenerPostImagenes,
+    obtenerPostImagens,
     crearPostImagen,
     crearPostImagens,
-    eliminarPostImagen,
-    actualizarPostImagen
+    eliminarPostImage,
+    actualizarPostImage
 };
