@@ -23,7 +23,25 @@ const validarPostImageId = async (req, res, next) => {
     }
 };
 
+
+const validarPostImageBulk = (req, res, next) => {
+    if (!Array.isArray(req.body) || req.body.length === 0) { 
+        return res.status(400).json({ error: 'Se esperaba un array con al menos una imagen' });
+    }
+    for (const item of req.body) {
+        const { error } = schemaPostImage.validate(item);
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }
+    }
+    next();
+};
+
+
+
+
 module.exports = {
     validarPostImage,
-    validarPostImageId
+    validarPostImageId,
+    validarPostImageBulk
 };
