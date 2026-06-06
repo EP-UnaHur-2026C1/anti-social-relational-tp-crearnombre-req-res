@@ -38,3 +38,14 @@ npm run seed
 | Método | Ruta | Descripción | Middlewares |
 |---|---|---|---|
 | `GET` | `/users/:id/posts` | Ver posts de un usuario | `validarUsuarioId` |
+
+
+### PostImage
+
+| Método | Ruta | Descripción | Middlewares |
+|---|---|---|---|
+| `POST` | `/postImages` | Crear postImage | `validarPostImage` |
+|`POST`| `/postImages/bulk`| Crear postImages (array) |   |
+| `GET` | `/postImages` | Listar postImages  | - |
+| `PUT` | `/postImages/:id` | Actualizar postImage | `validarPostImageId`, `validarPostImage` |
+| `DELETE` | `/postImages/:id` | Eliminar postImage | `validarPostImageId` |
