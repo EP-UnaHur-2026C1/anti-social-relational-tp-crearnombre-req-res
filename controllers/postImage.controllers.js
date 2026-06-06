@@ -1,5 +1,7 @@
 const {Post_Image,Post} = require('../models');
 
+
+
 const obtenerPostImagenes = async (req, res) => {
     try {
         const postImagenes = await Post_Image.findAll({
@@ -36,12 +38,40 @@ const crearPostImagens = async (req, res) => {
         const postImagensCreados = await Post_Image.bulkCreate(postImagensFormateados);
         res.status(201).json(postImagensCreados);
     } catch (error) {
+        res.status(500).json({ error: 'Error al crear las imágenes del post' });
+    }
+};
+
+
+const eliminarPostImagen = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const postImagen = req.postImagen;
+        await postImagen.destroy();
+        res.status(200).json({ message: 'Imagen del post eliminada correctamente' });
+    } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
+
+const actualizarPostImagen = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { URL, postId } = req.body;
+        const postImage = req.postImage;
+        await postImage.update({ URL, postId });
+        res.status(200).json(postImage);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 module.exports = {
     obtenerPostImagenes,
     crearPostImagen,
-    crearPostImagens
+    crearPostImagens,
+    eliminarPostImagen,
+    actualizarPostImagen
 };
