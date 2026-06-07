@@ -66,9 +66,8 @@ const obtenerComentarios = async (req, res) => {
       where: {
         fecha: {
           [Op.gte]: fechaLimite,
-        } && {
-          visible: true,
         },
+        visible: true,
       },
       attributes: ["id", "descripcion", "visible", "fecha"],
       include: [
@@ -93,14 +92,15 @@ const obtenerComentarios = async (req, res) => {
 const obtenerComentarioPorPostId = async (req, res) => {
   try {
     const postId = req.params.postId;
+    const meses = parseInt(process.env.COMENTARIOS_LIMITE_MESES) || 6;
+    const fechaLimite = new Date();
+    fechaLimite.setMonth(fechaLimite.getMonth() - meses);
+
     const comentarios = await Comment.findAll({
       where: {
         postId,
-        fecha: {
-          [Op.gte]: fechaLimite,
-        } && {
-          visible: true,
-        },
+        fecha: { [Op.gte]: fechaLimite },
+        visible: true,
       },
       attributes: ["id", "descripcion", "visible", "fecha"],
       include: [
@@ -111,16 +111,17 @@ const obtenerComentarioPorPostId = async (req, res) => {
         },
       ],
     });
+
     res.status(200).json(comentarios);
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).json({ error: "Error al obtener los comentarios por postId" });
   }
 };
 
 const obtenerComentarioPorId = async (req, res) => {
   try {
-    res.status(200).json(req.comentario);
+    const comentario = req.comentario;
+    res.status(200).json(comentario);
   } catch (error) {
     res.status(500).json({
       error: "Error al obtener el comentario",

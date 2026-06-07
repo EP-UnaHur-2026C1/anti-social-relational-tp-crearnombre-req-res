@@ -17,12 +17,13 @@ npm run seed
 
 ### Usuarios
 
-| Método   | Ruta         | Descripción                                | Middlewares                                                       |
-| -------- | ------------ | ------------------------------------------ | ----------------------------------------------------------------- |
-| `POST`   | `/users`     | Crear usuario                              | `validarUsuario`, `validarNickname`                               |
-| `GET`    | `/users`     | Listar usuarios (con conteo de seguidores) | -                                                                 |
-| `PUT`    | `/users/:id` | Actualizar usuario                         | `validarUsuarioId`, `validarActualizarUsuario`, `validarNickname` |
-| `DELETE` | `/users/:id` | Eliminar usuario                           | `validarUsuarioId`                                                |
+| Método   | Ruta               | Descripción                                | Middlewares                                                       |
+| -------- | ------------------ | ------------------------------------------ | ----------------------------------------------------------------- |
+| `POST`   | `/users`           | Crear usuario                              | `validarUsuario`, `validarNickname`                               |
+| `GET`    | `/users`           | Listar usuarios (con conteo de seguidores) | -                                                                 |
+| `GET`    | `/users/:nickname` | Listar usuario con nickname pedido         | `validarNickname`                                                 |
+| `PUT`    | `/users/:id`       | Actualizar usuario                         | `validarUsuarioId`, `validarActualizarUsuario`, `validarNickname` |
+| `DELETE` | `/users/:id`       | Eliminar usuario                           | `validarUsuarioId`                                                |
 
 ### Seguidores
 

@@ -62,6 +62,27 @@ const obtenerUsuarioId = async (req, res) => {
   }
 };
 
+const obtenerUsuarioPorNickname = async (req, res) => {
+  try {
+    const { nickname } = req.params;
+    const usuario = await User.findOne({
+      where: { nickname },
+      attributes: [
+        "nickname",
+        "nombre",
+        "apellido",
+        "fecha_nacimiento",
+        seguidoresCount],
+    });
+    const seguidoresCount = await usuario.countSeguidor();
+    res.status(200).json(usuario);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener el usuario por nickname" });
+  }
+};
+
+
+
 const actualizarUsuario = async (req, res) => {
   try {
     const { id } = req.params;
@@ -192,4 +213,5 @@ module.exports = {
   obtenerSeguidores,
   obtenerSeguidos,
   obtenerPublicaciones,
+  obtenerUsuarioPorNickname
 };
