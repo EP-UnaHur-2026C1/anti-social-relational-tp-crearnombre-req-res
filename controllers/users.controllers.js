@@ -1,4 +1,11 @@
-const { User, Post, Post_Image, Tag, Comment, sequelize } = require("../models");
+const {
+  User,
+  Post,
+  Post_Image,
+  Tag,
+  Comment,
+  sequelize,
+} = require("../models");
 const { Op } = require("sequelize");
 
 const crearUsuario = async (req, res) => {
@@ -35,6 +42,23 @@ const obtenerUsuarios = async (req, res) => {
     res.status(200).json(usuarios);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+const obtenerUsuarioId = async (req, res) => {
+  try {
+    const usuario = req.usuario;
+    const seguidoresCount = await usuario.countSeguidor();
+
+    res.status(200).json({
+      nickname: usuario.nickname,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      fecha_nacimiento: usuario.fecha_nacimiento,
+      seguidoresCount,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener el usuario" });
   }
 };
 
@@ -160,6 +184,7 @@ const obtenerPublicaciones = async (req, res) => {
 module.exports = {
   crearUsuario,
   obtenerUsuarios,
+  obtenerUsuarioId,
   actualizarUsuario,
   eliminarUsuario,
   seguirUsuario,

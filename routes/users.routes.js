@@ -13,6 +13,7 @@ const router = Router();
 
 router.post("/", validarUsuario, validarNickname, userController.crearUsuario);
 router.get("/", userController.obtenerUsuarios);
+router.get("/:id", validarUsuarioId, userController.obtenerUsuarioId);
 router.put(
   "/:id",
   validarUsuarioId,

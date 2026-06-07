@@ -63,6 +63,22 @@ paths:
         schema:
           type: integer
         description: ID del usuario
+    get:
+      summary: Obtener un usuario por ID
+      tags: [Usuarios]
+      responses:
+        "200":
+          description: Usuario con cantidad de seguidores
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsuarioConConteo"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     put:
       summary: Actualizar un usuario
       tags: [Usuarios]
@@ -295,6 +311,22 @@ paths:
         schema:
           type: integer
         description: ID del post
+    get:
+      summary: Obtener post por ID
+      tags: [Posts]
+      responses:
+        "200":
+          description: Post con todas sus relaciones
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostCompleto"
+        "404":
+          description: Post no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     delete:
       summary: Eliminar un post
       tags: [Posts]
