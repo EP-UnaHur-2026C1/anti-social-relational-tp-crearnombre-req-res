@@ -51,7 +51,7 @@ const getAllPosts = async (req, res) => {
   try {
     // REQUERIMIENTO ESPECIAL: Filtrar comentarios de más de X meses
     // Leemos la variable de entorno o usamos 6 meses por defecto
-    const mesesLimite = process.env.COMMENT_MAX_AGE_MONTHS || 6;
+    const mesesLimite = process.env.COMENTARIOS_LIMITE_MESES || 6;
     const fechaLimite = new Date();
     fechaLimite.setMonth(fechaLimite.getMonth() - mesesLimite);
 

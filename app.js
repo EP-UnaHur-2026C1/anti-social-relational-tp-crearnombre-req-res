@@ -1,6 +1,6 @@
-const express = require('express') 
-const app = express() 
-const db = require('./models') 
+const express = require('express')
+const app = express()
+const db = require('./models')
 const cors = require('cors')
 const routerUser = require('./routes/users.routes')
 const routerPost = require('./routes/posts.routes')
@@ -8,11 +8,11 @@ const routerTags = require('./routes/tags.routes')
 const routerComment = require('./routes/comments.routes')
 const routerPostImage = require('./routes/postImage.routes')
 
-require("dotenv").config(); 
+require("dotenv").config();
 
 // Si process.env.PORT no existe en el .env del profe, 
 // usa el puerto 3000 por defecto para que no falle.
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json())
 app.use(cors())
@@ -23,7 +23,7 @@ app.use('/tags', routerTags)
 app.use('/comments', routerComment)
 app.use('/postImages', routerPostImage)
 
-app.listen(PORT, async()=>{
+app.listen(PORT, async () => {
     try {
         // Le agregamos { alter: true }. 
         // Esto hace que Sequelize cree de forma automática las tablas 
@@ -33,7 +33,7 @@ app.listen(PORT, async()=>{
     } catch (error) {
         console.error("Error al conectar a la base de datos:", error.message)
     }
-}) 
+})
 
 
 

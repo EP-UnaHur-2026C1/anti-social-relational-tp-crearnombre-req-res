@@ -90,6 +90,34 @@ const obtenerComentarios = async (req, res) => {
   }
 };
 
+const obtenerComentarioPorPostId = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const comentarios = await Comment.findAll({
+      where: {
+        postId,
+        fecha: {
+          [Op.gte]: fechaLimite,
+        } && {
+          visible: true,
+        },
+      },
+      attributes: ["id", "descripcion", "visible", "fecha"],
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: ["nickname"],
+        },
+      ],
+    });
+    res.status(200).json(comentarios);
+  }
+  catch (error) {
+    res.status(500).json({ error: "Error al obtener los comentarios por postId" });
+  }
+};
+
 const obtenerComentarioPorId = async (req, res) => {
   try {
     res.status(200).json(req.comentario);
@@ -120,4 +148,5 @@ module.exports = {
   obtenerComentarios,
   obtenerComentarioPorId,
   deleteComentario,
+  obtenerComentarioPorPostId
 };
