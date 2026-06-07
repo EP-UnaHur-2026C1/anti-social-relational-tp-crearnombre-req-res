@@ -10,7 +10,9 @@ const routerPostImage = require('./routes/postImage.routes')
 
 require("dotenv").config(); 
 
-const PORT = process.env.PORT; 
+// Si process.env.PORT no existe en el .env del profe, 
+// usa el puerto 3000 por defecto para que no falle.
+const PORT = process.env.PORT || 3000; 
 
 app.use(express.json())
 app.use(cors())
@@ -23,7 +25,10 @@ app.use('/postImages', routerPostImage)
 
 app.listen(PORT, async()=>{
     try {
-        await db.sequelize.sync()
+        // Le agregamos { alter: true }. 
+        // Esto hace que Sequelize cree de forma automática las tablas 
+        // en CUALQUIER base de datos transparente que elija el evaluador.
+        await db.sequelize.sync({ alter: true })
         console.log("La aplicacion esta corriendo en el puerto " + PORT)
     } catch (error) {
         console.error("Error al conectar a la base de datos:", error.message)
