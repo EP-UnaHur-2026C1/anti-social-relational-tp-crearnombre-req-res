@@ -5,7 +5,6 @@ const { validarPostImage, validarPostImageId,validarPostImageBulk } = require('.
 const router = Router();
 
 router.get('/', postImageController.obtenerPostImagens);
-
 router.post('/', validarPostImage, postImageController.crearPostImagen);
 router.post('/bulk', validarPostImageBulk, postImageController.crearPostImagens);
 router.delete('/:id', validarPostImageId, postImageController.eliminarPostImage);
