@@ -11,6 +11,6 @@ router.get('/', commentController.obtenerComentarios);
 router.get('/:id', validarComentarioId, cargarComentario, commentController.obtenerComentarioPorId);
 router.delete('/:id', validarComentarioId, cargarComentario, commentController.deleteComentario);
 router.put('/:id', validarComentarioId, validarComentario, cargarComentario, commentController.actualizarComentario);
-router.get('/post/:postId', validarPostId, commentController.obtenerComentariosPorPostId);
+router.get('/post/:postId', validarPostId, commentController.obtenerComentarioPorPostId);
 
 module.exports = router;
