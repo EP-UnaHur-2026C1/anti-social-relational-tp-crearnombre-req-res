@@ -8,7 +8,7 @@ const obtenerTags = async (req, res) => {
         });
         res.status(200).json(tags);
     } catch (error) {
-        res.status(500).json({messege: "Error al obtener los tags"});
+        res.status(500).json({ messege: "Error al obtener los tags" });
     }
 };
 
@@ -33,7 +33,7 @@ const actualizarTag = async (req, res) => {
         });
         res.status(200).json(tag);
     } catch (error) {
-        res.status(500).json({error: error.message});
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -41,9 +41,9 @@ const eliminarTag = async (req, res) => {
     try {
         const tag = req.tag;
         await tag.destroy();
-        res.status(200).json({message: "Tag eliminado con exito"});
+        res.status(200).json({ message: "Tag eliminado con exito" });
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json({ error: error.message })
     }
 };
 

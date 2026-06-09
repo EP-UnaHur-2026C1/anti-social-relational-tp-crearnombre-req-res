@@ -97,6 +97,42 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+const obtenerPostByTag = async (req, res) => {
+  try {
+    const { tagName } = req.params;
+    const posts = await Post.findAll({
+      include: [
+        {
+          model: Tag,
+          as: "tags",
+          where: { name: tagName },
+          through: { attributes: [] },
+        },
+        {
+          model: User,
+          as: "user",
+          attributes: ["nickname", "nombre", "apellido"],
+        },
+        {
+          model: Post_Image,
+          as: "images",
+          attributes: ["url"],
+        },
+        {
+          model: Comment,
+          as: "comments",
+        },
+      ],
+    });
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Hubo un error al obtener los posts." });
+  }
+};
+
 const obtenerPostId = async (req, res) => {
   try {
     const post = req.post;
@@ -106,6 +142,22 @@ const obtenerPostId = async (req, res) => {
     res.status(500).json({ error: "Error al obtener el post" });
   }
 };
+
+const updatePost = async (req, res) => {
+  try {
+    const post = req.post;
+    const { descripcion } = req.body;
+    await post.update({
+      descripcion,
+    });
+    res.status(200).json(post);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al actualizar el post" });
+  }
+};
+
+
 
 const deletePost = async (req, res) => {
   try {
@@ -139,4 +191,6 @@ module.exports = {
   getAllPosts,
   obtenerPostId,
   deletePost,
+  updatePost,
+  obtenerPostByTag,
 };

@@ -36,9 +36,14 @@ npm run seed
 
 ### Posts
 
-| Método | Ruta               | Descripción             | Middlewares        |
-| ------ | ------------------ | ----------------------- | ------------------ |
-| `GET`  | `/users/:id/posts` | Ver posts de un usuario | `validarUsuarioId` |
+| Método  | Ruta            | Descripción                       | Middlewares        |
+| ------- | -------------   | -----------------------           | ------------------ |
+| `GET`   | `/posts/:id`    | Ver todos los posts de un usuario | `validarPostId`,`obtenerPostId` |
+| `GET`   | `/posts`        | Ver todos los posts               | -                               |
+| `GET`   | `/posts/:idTag` | Ver todos los posts de un tag     | `validarTagId`                  |
+| `POST`  | `/posts`        | Crea un post                      | -                               |
+| `DELETE`| `/posts/:id`    | Elimina el post indicado          | `validarPostId`                 |
+| `PUT`   | `/posts/:id`    | Actualiza el post indicado        | `validarPostId`                 |
 
 
 ### PostImage
@@ -66,7 +71,9 @@ npm run seed
 
 ### Tags
 
-| Método | Ruta    | Descripción            | Middlewares  |
-| ------ | ------- | ---------------------- | ------------ |
-| `POST` | `/tags` | Crear nuevo tag        | `validarTag` |
-| `GET`  | `/tags` | Mostrar todos los tags | -            |
+| Método    | Ruta        | Descripción                      | Middlewares                 |
+| --------- | ----------- | ---------------------------------| --------------------------- |
+| `POST`    | `/tags`     | Crear nuevo tag                  | `validarTag`                |
+| `GET`     | `/tags`     | Mostrar todos los tags           | -                           |
+| `PUT`     | `/tags/:id` | Actualiza el tag con id :id      | `validarTagId`, `validarTag`|
+| `DELETE`  | `/tags/:id` | Elimina el tag con id :id        | `validarTagId`              |
