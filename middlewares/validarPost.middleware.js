@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 
 const validarPostId = async (req, res, next) => {
   const { id } = req.params;
-  const mesesLimite = process.env.COMMENT_MAX_AGE_MONTHS || 6;
+  const mesesLimite = process.env.COMENTARIOS_LIMITE_MESES || 6;
   const fechaLimite = new Date();
   fechaLimite.setMonth(fechaLimite.getMonth() - mesesLimite);
 
