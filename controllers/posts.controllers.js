@@ -78,8 +78,10 @@ const getAllPosts = async (req, res) => {
           model: Comment,
           as: "comments",
           where: {
-            createdAt: {
-              [Op.gte]: fechaLimite, // Condición: fecha del comentario >= fecha limite
+            fecha: {
+              [Op.gte]: fechaLimite,// Condición: fecha del comentario >= fecha limite
+              visible: true, // Solo comentarios visibles
+               
             },
           },
           required: false, // LEFT JOIN: Si el post no tiene comentarios, lo trae igual
