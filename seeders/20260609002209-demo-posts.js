@@ -1,37 +1,36 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Posts', [
       {
-        titulo: 'Mi primer post',
-        contenido: 'Este es el contenido de mi primer post.',
+        descripcion: 'Mi primer post',
+        fecha: new Date(),
         userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        titulo: 'Viaje a la playa',
-        contenido: 'Disfruté mucho mi viaje a la playa el fin de semana pasado.',
+        descripcion: 'Viaje a la playa',
+        fecha: new Date(),
         userId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
-      , {
-        titulo: 'Receta de pasta',
-        contenido: 'Aquí les comparto mi receta favorita de pasta con salsa de tomate.',
+      },
+      {
+        descripcion: 'Receta de pasta',
+        fecha: new Date(),
         userId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
-      , {
-        titulo: 'Mi experiencia en el gimnasio',
-        contenido: 'He estado yendo al gimnasio regularmente y me siento mucho mejor.',
+      },
+      {
+        descripcion: 'Mi experiencia en el gimnasio',
+        fecha: new Date(),
         userId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
+      },
     ], {});
   },
 

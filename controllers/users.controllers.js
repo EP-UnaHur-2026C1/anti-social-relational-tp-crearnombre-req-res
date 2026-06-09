@@ -27,6 +27,7 @@ const obtenerUsuarios = async (req, res) => {
   try {
     const usuarios = await User.findAll({
       attributes: [
+        "id",
         "nickname",
         "nombre",
         "apellido",
@@ -51,6 +52,7 @@ const obtenerUsuarioId = async (req, res) => {
     const seguidoresCount = await usuario.countSeguidor();
 
     res.status(200).json({
+      id: usuario.id,
       nickname: usuario.nickname,
       nombre: usuario.nombre,
       apellido: usuario.apellido,
@@ -61,27 +63,6 @@ const obtenerUsuarioId = async (req, res) => {
     res.status(500).json({ error: "Error al obtener el usuario" });
   }
 };
-
-const obtenerUsuarioPorNickname = async (req, res) => {
-  try {
-    const { nickname } = req.params;
-    const usuario = await User.findOne({
-      where: { nickname },
-      attributes: [
-        "nickname",
-        "nombre",
-        "apellido",
-        "fecha_nacimiento",
-        seguidoresCount],
-    });
-    const seguidoresCount = await usuario.countSeguidor();
-    res.status(200).json(usuario);
-  } catch (error) {
-    res.status(500).json({ error: "Error al obtener el usuario por nickname" });
-  }
-};
-
-
 
 const actualizarUsuario = async (req, res) => {
   try {
@@ -213,5 +194,4 @@ module.exports = {
   obtenerSeguidores,
   obtenerSeguidos,
   obtenerPublicaciones,
-  obtenerUsuarioPorNickname
 };

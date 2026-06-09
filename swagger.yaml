@@ -1,8 +1,8 @@
 openapi: "3.0.3"
 info:
-  title: Anti-Social TP UNaHur API
+  title: Anti-Social Relational API
   description: API de red social con usuarios, posts, comentarios, tags, imágenes y seguidores
-  version: "1.0.0"
+  version: "2.0.0"
 
 servers:
   - url: http://localhost:3000
@@ -14,18 +14,17 @@ paths:
   # ────────────────────────────────────────────
   /users:
     get:
-      summary: Obtener todos los usuarios
+      summary: Obtener todos los usuarios con conteo de seguidores
       tags: [Usuarios]
       responses:
         "200":
-          description: Lista de usuarios con cantidad de seguidores
+          description: Lista de usuarios
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/UsuarioConConteo"
-
     post:
       summary: Crear un usuario
       tags: [Usuarios]
@@ -62,13 +61,12 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID del usuario
     get:
       summary: Obtener un usuario por ID
       tags: [Usuarios]
       responses:
         "200":
-          description: Usuario con cantidad de seguidores
+          description: Usuario encontrado
           content:
             application/json:
               schema:
@@ -95,6 +93,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Usuario"
+        "400":
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "404":
           description: Usuario no encontrado
           content:
@@ -111,6 +115,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MensajeResponse"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
   # ────────────────────────────────────────────
   # SEGUIDORES
@@ -122,7 +132,7 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID del usuario a seguir
+        description: ID del usuario a seguir/dejar de seguir
     post:
       summary: Seguir a un usuario
       tags: [Seguidores]
@@ -169,7 +179,6 @@ paths:
               properties:
                 seguidorId:
                   type: integer
-                  description: ID del usuario que deja de seguir
       responses:
         "200":
           description: Usuario dejado de seguir
@@ -177,6 +186,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MensajeResponse"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
   /users/{id}/followers:
     parameters:
@@ -185,13 +200,12 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID del usuario
     get:
       summary: Obtener seguidores de un usuario
       tags: [Seguidores]
       responses:
         "200":
-          description: Lista de seguidores
+          description: Lista de nicknames de seguidores
           content:
             application/json:
               schema:
@@ -209,13 +223,12 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID del usuario
     get:
       summary: Obtener usuarios que sigue un usuario
       tags: [Seguidores]
       responses:
         "200":
-          description: Lista de usuarios seguidos
+          description: Lista de nicknames de seguidos
           content:
             application/json:
               schema:
@@ -236,13 +249,12 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID del usuario
     get:
       summary: Obtener posts de un usuario específico
       tags: [Usuarios]
       responses:
         "200":
-          description: Posts del usuario con todas sus relaciones
+          description: Posts del usuario con relaciones
           content:
             application/json:
               schema:
@@ -259,7 +271,7 @@ paths:
       tags: [Posts]
       responses:
         "200":
-          description: Lista de posts con usuario, imágenes, tags y comentarios
+          description: Lista de posts con usuario, imágenes, tags y comentarios filtrados
           content:
             application/json:
               schema:
@@ -291,17 +303,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/Post"
         "400":
-          description: Descripción obligatoria
+          description: Error de validación
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MensajeResponse"
+                $ref: "#/components/schemas/ErrorResponse"
         "404":
           description: Usuario no encontrado
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MensajeResponse"
+                $ref: "#/components/schemas/ErrorResponse"
 
   /posts/{id}:
     parameters:
@@ -310,17 +322,41 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID del post
     get:
-      summary: Obtener post por ID
+      summary: Obtener un post por ID
       tags: [Posts]
       responses:
         "200":
-          description: Post con todas sus relaciones
+          description: Post encontrado
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostCompleto"
+        "404":
+          description: Post no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Actualizar descripción de un post
+      tags: [Posts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                descripcion:
+                  type: string
+      responses:
+        "200":
+          description: Post actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
         "404":
           description: Post no encontrado
           content:
@@ -344,16 +380,36 @@ paths:
               schema:
                 $ref: "#/components/schemas/MensajeResponse"
 
+  /posts/tag/{tagId}:
+    parameters:
+      - name: tagId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Obtener posts por tag
+      tags: [Posts]
+      responses:
+        "200":
+          description: Posts filtrados por tag
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PostCompleto"
+
   # ────────────────────────────────────────────
   # COMENTARIOS
   # ────────────────────────────────────────────
   /comments:
     get:
-      summary: Obtener todos los comentarios (con filtro de meses)
+      summary: Obtener todos los comentarios visibles (con filtro de meses)
       tags: [Comentarios]
       responses:
         "200":
-          description: Lista de comentarios visibles dentro del límite de meses
+          description: Lista de comentarios
           content:
             application/json:
               schema:
@@ -382,6 +438,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Usuario o post no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /comments/post/{postId}:
+    parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Obtener comentarios de un post específico
+      tags: [Comentarios]
+      responses:
+        "200":
+          description: Comentarios del post
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ComentarioConUsuario"
 
   /comments/{id}:
     parameters:
@@ -390,7 +472,6 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID del comentario
     get:
       summary: Obtener un comentario por ID
       tags: [Comentarios]
@@ -423,6 +504,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Comentario"
+        "404":
+          description: Comentario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     delete:
       summary: Eliminar un comentario
       tags: [Comentarios]
@@ -433,6 +520,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MensajeResponse"
+        "404":
+          description: Comentario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
   # ────────────────────────────────────────────
   # TAGS
@@ -472,6 +565,61 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Tag"
+        "400":
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /tags/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      summary: Actualizar un tag
+      tags: [Tags]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+      responses:
+        "200":
+          description: Tag actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "404":
+          description: Tag no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Eliminar un tag
+      tags: [Tags]
+      responses:
+        "200":
+          description: Tag eliminado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MensajeResponse"
+        "404":
+          description: Tag no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
   # ────────────────────────────────────────────
   # POST IMAGES
@@ -482,7 +630,7 @@ paths:
       tags: [Imágenes]
       responses:
         "200":
-          description: Lista de imágenes
+          description: Lista de imágenes con datos del post
           content:
             application/json:
               schema:
@@ -490,7 +638,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/PostImageConPost"
     post:
-      summary: Crear una imagen de post
+      summary: Crear una imagen de post (descarga y almacena localmente)
       tags: [Imágenes]
       requestBody:
         required: true
@@ -505,6 +653,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostImage"
+        "400":
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
   /postImages/bulk:
     post:
@@ -527,6 +681,12 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PostImage"
+        "400":
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
   /postImages/{id}:
     parameters:
@@ -535,7 +695,6 @@ paths:
         required: true
         schema:
           type: integer
-        description: ID de la imagen
     put:
       summary: Actualizar una imagen de post
       tags: [Imágenes]
@@ -552,6 +711,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostImage"
+        "404":
+          description: Imagen no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     delete:
       summary: Eliminar una imagen de post
       tags: [Imágenes]
@@ -562,10 +727,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MensajeResponse"
+        "404":
+          description: Imagen no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
 components:
   schemas:
-    # ─────────── ERRORES ───────────
     ErrorResponse:
       type: object
       properties:
@@ -578,7 +748,6 @@ components:
         message:
           type: string
 
-    # ─────────── USUARIOS ───────────
     Usuario:
       type: object
       properties:
@@ -603,6 +772,8 @@ components:
     UsuarioConConteo:
       type: object
       properties:
+        id:
+          type: integer
         nickname:
           type: string
         nombre:
@@ -614,7 +785,7 @@ components:
           format: date
         seguidoresCount:
           type: integer
-          description: Cantidad de seguidores del usuario
+          description: Cantidad de seguidores
 
     CrearUsuarioInput:
       type: object
@@ -624,7 +795,6 @@ components:
           type: string
           minLength: 3
           maxLength: 30
-          description: Alphanumérico
         nombre:
           type: string
           minLength: 2
@@ -636,7 +806,6 @@ components:
         fecha_nacimiento:
           type: string
           format: date
-          description: Formato ISO (YYYY-MM-DD). Opcional.
 
     ActualizarUsuarioInput:
       type: object
@@ -658,7 +827,6 @@ components:
           type: string
           format: date
 
-    # ─────────── POSTS ───────────
     Post:
       type: object
       properties:
@@ -721,7 +889,6 @@ components:
           items:
             $ref: "#/components/schemas/Comentario"
 
-    # ─────────── COMENTARIOS ───────────
     Comentario:
       type: object
       properties:
@@ -739,23 +906,48 @@ components:
         postId:
           type: integer
 
-    ComentarioConRelaciones:
-      allOf:
-        - $ref: "#/components/schemas/Comentario"
-        - type: object
+    ComentarioConUsuario:
+      type: object
+      properties:
+        id:
+          type: integer
+        descripcion:
+          type: string
+        visible:
+          type: boolean
+        fecha:
+          type: string
+          format: date
+        user:
+          type: object
           properties:
-            user:
-              type: object
-              properties:
-                nickname:
-                  type: string
-            post:
-              type: object
-              properties:
-                id:
-                  type: integer
-                descripcion:
-                  type: string
+            nickname:
+              type: string
+
+    ComentarioConRelaciones:
+      type: object
+      properties:
+        id:
+          type: integer
+        descripcion:
+          type: string
+        visible:
+          type: boolean
+        fecha:
+          type: string
+          format: date
+        user:
+          type: object
+          properties:
+            nickname:
+              type: string
+        post:
+          type: object
+          properties:
+            id:
+              type: integer
+            descripcion:
+              type: string
 
     CrearComentarioInput:
       type: object
@@ -770,7 +962,6 @@ components:
         postId:
           type: integer
 
-    # ─────────── TAGS ───────────
     Tag:
       type: object
       properties:
@@ -779,7 +970,6 @@ components:
         nombre:
           type: string
 
-    # ─────────── POST IMAGES ───────────
     PostImage:
       type: object
       properties:
@@ -787,23 +977,28 @@ components:
           type: integer
         URL:
           type: string
-          format: uri
         postId:
           type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
 
     PostImageConPost:
-      allOf:
-        - $ref: "#/components/schemas/PostImage"
-        - type: object
+      type: object
+      properties:
+        URL:
+          type: string
+        post:
+          type: object
           properties:
-            post:
-              type: object
-              properties:
-                descripcion:
-                  type: string
-                fecha:
-                  type: string
-                  format: date
+            descripcion:
+              type: string
+            fecha:
+              type: string
+              format: date
 
     CrearPostImageInput:
       type: object

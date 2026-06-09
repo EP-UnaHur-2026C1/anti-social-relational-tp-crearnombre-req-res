@@ -15,7 +15,7 @@ module.exports = {
       {
         descripcion: 'Comentario viejo y visible',
         visible: true,
-        fecha: new Date('2025-01-01'), //Fecha vieja
+        fecha: new Date('2025-01-01'),
         userId: 2,
         postId: 2,
         createdAt: new Date(),
@@ -24,7 +24,7 @@ module.exports = {
       {
         descripcion: 'Comentario viejo y no visible',
         visible: false,
-        fecha: new Date('2025-01-01'), //Fecha vieja
+        fecha: new Date('2025-01-01'),
         userId: 3,
         postId: 3,
         createdAt: new Date(),

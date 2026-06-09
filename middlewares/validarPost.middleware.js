@@ -1,5 +1,25 @@
 const { Post, User, Post_Image, Tag, Comment } = require("../models");
+const {
+  postsSchema,
+  actualizarPostsSchema,
+} = require("../schemas/posts.schema");
 const { Op } = require("sequelize");
+
+const validarPost = (req, res, next) => {
+  const { error } = postsSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  next();
+};
+
+const validarActualizarPost = (req, res, next) => {
+  const { error } = actualizarPostsSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  next();
+};
 
 const validarPostId = async (req, res, next) => {
   const { id } = req.params;
@@ -45,5 +65,7 @@ const validarPostId = async (req, res, next) => {
 };
 
 module.exports = {
+  validarPost,
   validarPostId,
+  validarActualizarPost,
 };

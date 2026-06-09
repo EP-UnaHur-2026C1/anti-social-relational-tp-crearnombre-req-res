@@ -22,6 +22,16 @@ const validarUsuarioId = async (req, res, next) => {
   next();
 };
 
+const validarUsuarioNickname = async (req, res, next) => {
+  const { userNickname } = req.body;
+  const usuario = await User.findOne({ where: { nickname: userNickname } });
+  if (!usuario) {
+    return res.status(404).json({ error: "Usuario no encontrado" });
+  }
+  req.usuario = usuario;
+  next();
+};
+
 const validarActualizarUsuario = (req, res, next) => {
   const { error } = actualizarUsuarioSchema.validate(req.body);
   if (error) {
@@ -70,6 +80,7 @@ const validarNickname = async (req, res, next) => {
 module.exports = {
   validarUsuario,
   validarUsuarioId,
+  validarUsuarioNickname,
   validarActualizarUsuario,
   validarSeguidorId,
   validarNoSeguirseASiMismo,

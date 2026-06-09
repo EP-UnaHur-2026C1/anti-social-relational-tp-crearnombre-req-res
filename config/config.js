@@ -1,23 +1,26 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
   development: {
-    username: process.env.DB_USERNAME || 'root',
+    username: process.env.DB_USERNAME || "root",
     password: process.env.DB_PASSWORD || null,
-    database: process.env.DB_NAME || 'anti_social_db',
-    host: process.env.DB_HOST || '127.0.0.1',
-    dialect: process.env.DB_DIALECT || 'sqlite',
-    storage: process.env.DB_DIALECT === 'sqlite' ? (process.env.DB_STORAGE || './data.sqlite') : null,
-    logging: false
+    database: process.env.DB_NAME || "anti_social_db",
+    host: process.env.DB_HOST || "127.0.0.1",
+    dialect: process.env.DB_DIALECT || "sqlite",
+    storage:
+      process.env.DB_DIALECT === "sqlite"
+        ? process.env.DB_STORAGE || "./data/data.sqlite"
+        : null,
+    logging: false,
   },
   test: {
-    username: process.env.DB_USERNAME || 'root',
+    username: process.env.DB_USERNAME || "root",
     password: process.env.DB_PASSWORD || null,
     database: "anti_social_test",
-    host: process.env.DB_HOST || '127.0.0.1',
-    dialect: process.env.DB_DIALECT || 'sqlite',
-    storage: ':memory:',
-    logging: false
+    host: process.env.DB_HOST || "127.0.0.1",
+    dialect: process.env.DB_DIALECT || "sqlite",
+    storage: ":memory:",
+    logging: false,
   },
   production: {
     username: process.env.DB_USERNAME,
@@ -25,6 +28,6 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    logging: false
-  }
+    logging: false,
+  },
 };
