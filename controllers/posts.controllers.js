@@ -79,7 +79,10 @@ const getAllPosts = async (req, res) => {
 
 const obtenerPostByTag = async (req, res) => {
   try {
-    const { tagName } = req.params;
+    const mesesLimite = process.env.COMENTARIOS_LIMITE_MESES || 6;
+    const fechaLimite = new Date();
+    fechaLimite.setMonth(fechaLimite.getMonth() - mesesLimite);
+    const { nombre } = req.tag;
     const posts = await Post.findAll({
       include: [
         {
@@ -95,6 +98,7 @@ const obtenerPostByTag = async (req, res) => {
         {
           model: Tag,
           as: "tags",
+          where: { id: req.tag.id }, // Filtra por el tag específico
           through: { attributes: [] }, // Limpia los datos feos de la tabla intermedia
         },
         {

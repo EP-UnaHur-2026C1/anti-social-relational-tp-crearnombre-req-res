@@ -4,7 +4,21 @@ API de red social construida con Node.js, Express y Sequelize. Permite gestionar
 
 ---
 
-## Stack
+Pasos para probar:
+
+```bash
+# 1. Iniciar servidor
+npm run dev
+
+# 2. En otra terminal, cargar datos de prueba
+npm run seed
+
+# 3. Importar el archivo deseado en Postman y probar los endpoints
+```
+
+Los requests usan la variable `{{baseUrl}}` que debe definirse en Postman como `http://localhost:3000`.
+
+---
 
 - **Runtime:** Node.js 24+
 - **Framework:** Express 5
@@ -35,6 +49,18 @@ npm run dev
 # 5. (Opcional) Cargar datos de prueba
 npm run seed
 ```
+
+## Pruebas con Postman
+
+Hay tres archivos en la raíz del proyecto para probar en Postman:
+
+| Archivo                                 | Descripción                                                            |
+| --------------------------------------- | ---------------------------------------------------------------------- |
+| `api_postman_collection.json`           | Estructura base con todos los endpoints (sin datos de ejemplo)         |
+| `datos de prueba.json`                  | Ejemplos de datos para usar en las requests                            |
+| `api_postman_collection con datos.json` | Colección completa con estructura + datos precargados listos para usar |
+
+**api_postman_collection con datos.json asume que se ejecutó `npm run seed` primero** para que los IDs de usuarios, posts, tags y comentarios coincidan.
 
 El servidor se levanta en `http://localhost:3000` (o el puerto configurado en `PORT`).
 

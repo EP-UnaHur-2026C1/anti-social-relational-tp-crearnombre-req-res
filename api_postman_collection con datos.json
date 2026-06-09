@@ -1,0 +1,847 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Anti-Social Relational API",
+    "description": "Colección con datos de ejemplo que coinciden con los seeders. Ejecutar npm run seed antes de usar.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12345678"
+  },
+  "item": [
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Crear",
+          "item": [
+            {
+              "name": "Crear usuario 1",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"luciah\",\n  \"nombre\": \"Lucia\",\n  \"apellido\": \"Hernandez\",\n  \"fecha_nacimiento\": \"2002-04-18\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              }
+            },
+            {
+              "name": "Crear usuario 2",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"sofiam\",\n  \"nombre\": \"Sofia\",\n  \"apellido\": \"Mendoza\",\n  \"fecha_nacimiento\": \"1999-11-30\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              }
+            },
+            {
+              "name": "Crear usuario 3",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"tomasd\",\n  \"nombre\": \"Tomas\",\n  \"apellido\": \"Diaz\",\n  \"fecha_nacimiento\": \"2001-07-14\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar",
+          "item": [
+            {
+              "name": "Listar usuarios",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Obtener",
+          "item": [
+            {
+              "name": "Obtener usuario 1 (juan)",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/users/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "1"]
+                }
+              }
+            },
+            {
+              "name": "Obtener usuario 2 (maria)",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/users/2",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "2"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "item": [
+            {
+              "name": "Actualizar usuario 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Juan Carlos\",\n  \"apellido\": \"Perez Gonzalez\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Eliminar",
+          "item": [
+            {
+              "name": "Eliminar usuario 5 (carlos)",
+              "request": {
+                "method": "DELETE",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/users/5",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "5"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Seguidores",
+          "item": [
+            {
+              "name": "Seguir a usuario 1 (carlos sigue a juan)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"seguidorId\": 5\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/1/follow",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "1", "follow"]
+                }
+              }
+            },
+            {
+              "name": "Dejar de seguir a usuario 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"seguidorId\": 5\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/1/follow",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "1", "follow"]
+                }
+              }
+            },
+            {
+              "name": "Obtener seguidores de usuario 1",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/users/1/followers",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "1", "followers"]
+                }
+              }
+            },
+            {
+              "name": "Obtener seguidos de usuario 1",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/users/1/following",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "1", "following"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Posts del usuario",
+          "item": [
+            {
+              "name": "Posts de usuario 1 (juan)",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/users/1/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "1", "posts"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Crear",
+          "item": [
+            {
+              "name": "Crear post 1 (juan)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"descripcion\": \"Mi nuevo post de prueba\",\n  \"userNickname\": \"juan\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"]
+                }
+              }
+            },
+            {
+              "name": "Crear post 2 (maria)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"descripcion\": \"Fotos de mi viaje\",\n  \"userNickname\": \"maria\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar",
+          "item": [
+            {
+              "name": "Listar todos los posts",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Obtener",
+          "item": [
+            {
+              "name": "Obtener post 1 (Mi primer post)",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "1"]
+                }
+              }
+            },
+            {
+              "name": "Obtener post 2 (Viaje a la playa)",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/2",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "2"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Por tag",
+          "item": [
+            {
+              "name": "Posts con tag 1 (hermoso)",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/tag/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "tag", "1"]
+                }
+              }
+            },
+            {
+              "name": "Posts con tag 2 (campo)",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/tag/2",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "tag", "2"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "item": [
+            {
+              "name": "Actualizar post 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"descripcion\": \"Mi primer post editado\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Eliminar",
+          "item": [
+            {
+              "name": "Eliminar post 4",
+              "request": {
+                "method": "DELETE",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/4",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "4"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Comentarios",
+      "item": [
+        {
+          "name": "Crear",
+          "item": [
+            {
+              "name": "Crear comentario 1 (carlos en post 1)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"descripcion\": \"Gran publicacion!\",\n  \"userId\": 5,\n  \"postId\": 1\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/comments",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments"]
+                }
+              }
+            },
+            {
+              "name": "Crear comentario 2 (laura en post 2)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"descripcion\": \"Que lindo lugar!\",\n  \"userId\": 4,\n  \"postId\": 2\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/comments",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar",
+          "item": [
+            {
+              "name": "Listar comentarios",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/comments",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Obtener por ID",
+          "item": [
+            {
+              "name": "Obtener comentario id 1",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/comments/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Por post",
+          "item": [
+            {
+              "name": "Comentarios de post 1",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/comments/post/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments", "post", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "item": [
+            {
+              "name": "Actualizar comentario 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"descripcion\": \"Comentario actualizado\",\n  \"userId\": 1,\n  \"postId\": 1\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/comments/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Eliminar",
+          "item": [
+            {
+              "name": "Eliminar comentario 4",
+              "request": {
+                "method": "DELETE",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/comments/4",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments", "4"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tags",
+      "item": [
+        {
+          "name": "Crear",
+          "item": [
+            {
+              "name": "Crear tag 1 (naturaleza)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"naturaleza\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tags",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["tags"]
+                }
+              }
+            },
+            {
+              "name": "Crear tag 2 (tecnologia)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"tecnologia\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tags",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["tags"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar",
+          "item": [
+            {
+              "name": "Listar tags",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/tags",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["tags"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "item": [
+            {
+              "name": "Actualizar tag 1 (hermoso)",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"hermoso-paisaje\"\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tags/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["tags", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Eliminar",
+          "item": [
+            {
+              "name": "Eliminar tag 10 (moda)",
+              "request": {
+                "method": "DELETE",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/tags/10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["tags", "10"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PostImages",
+      "item": [
+        {
+          "name": "Crear",
+          "item": [
+            {
+              "name": "Crear postImage 1 (post 3)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"URL\": \"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60\",\n  \"postId\": 3\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/postImages",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["postImages"]
+                }
+              }
+            },
+            {
+              "name": "Crear postImage 2 (post 4)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"URL\": \"https://images.unsplash.com/photo-1780403713896-ca70492d80db?q=80&w=327&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n  \"postId\": 4\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/postImages",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["postImages"]
+                }
+              }
+            },
+            {
+              "name": "Crear postImages bulk",
+              "request": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"URL\": \"https://images.unsplash.com/photo-1780534906959-986703bec0ed?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    \"postId\": 3\n  },\n  {\n    \"URL\": \"https://images.unsplash.com/photo-1739243523363-31457dbdcc9b?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    \"postId\": 4\n  }\n]",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/postImages/bulk",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["postImages", "bulk"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar",
+          "item": [
+            {
+              "name": "Listar postImages",
+              "request": {
+                "method": "GET",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/postImages",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["postImages"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar",
+          "item": [
+            {
+              "name": "Actualizar postImage 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" },
+                  { "key": "Accept", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"URL\": \"https://images.unsplash.com/photo-1780592651409-e84041b3f8a0?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n  \"postId\": 1\n}",
+                  "options": {
+                    "raw": { "headerFamily": "json", "language": "json" }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/postImages/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["postImages", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Eliminar",
+          "item": [
+            {
+              "name": "Eliminar postImage 4",
+              "request": {
+                "method": "DELETE",
+                "header": [{ "key": "Accept", "value": "application/json" }],
+                "url": {
+                  "raw": "{{baseUrl}}/postImages/4",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["postImages", "4"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
